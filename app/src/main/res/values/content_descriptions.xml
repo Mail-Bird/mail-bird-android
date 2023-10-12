@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cd_home_menu">Menu</string>
+    <string name="cd_search_menu">Search</string>
+    <string name="cd_avatar">Avatar</string>
+</resources>

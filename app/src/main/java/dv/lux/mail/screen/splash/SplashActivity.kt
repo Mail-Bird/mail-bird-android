@@ -9,7 +9,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import dv.lux.mail.MainActivity
+import dv.lux.mail.screen.main.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
