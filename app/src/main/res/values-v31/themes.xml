@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Mail.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/splash_screen_background_color</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/background_splash_screen</item>
+        <item name="postSplashScreenTheme">@style/Theme.Mail</item>
+    </style>
+
+</resources>
