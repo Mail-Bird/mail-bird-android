@@ -2,7 +2,7 @@
 <resources>
 
     <style name="Theme.Mail" parent="android:Theme.Material.Light.NoActionBar">
-
+        <!-- Custom style for app-->
     </style>
 
     <style name="Theme.Mail.SplashScreen" parent="Theme.Mail">
