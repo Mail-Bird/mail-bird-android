@@ -67,4 +67,5 @@ dependencies {
     // App Custom
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("androidx.navigation:navigation-compose:2.7.4")
 }

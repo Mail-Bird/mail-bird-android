@@ -3,4 +3,5 @@
     <string name="cd_home_menu">Menu</string>
     <string name="cd_search_menu">Search</string>
     <string name="cd_avatar">Avatar</string>
+    <string name="cd_back">Back</string>
 </resources>

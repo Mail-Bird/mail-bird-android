@@ -1,6 +1,7 @@
 package dv.lux.mail.component
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,7 +32,9 @@ import dv.lux.mail.ui.theme.MailTheme
 
 
 @Composable
-fun TopNavigation(modifier: Modifier = Modifier) {
+fun TopNavigation(
+    onOpenProfile: () -> Unit
+) {
     Column {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
             Row(
@@ -54,7 +57,6 @@ fun TopNavigation(modifier: Modifier = Modifier) {
             }
             Text(
                 text = "Inbox",
-                modifier = modifier,
                 style = AppTypography.titleMedium
             )
             Row(
@@ -77,6 +79,9 @@ fun TopNavigation(modifier: Modifier = Modifier) {
                             color = colorResource(id = R.color.navigation_avatar_border),
                             shape = CircleShape
                         )
+                        .clickable {
+                            onOpenProfile.invoke()
+                        }
                 )
             }
         }
@@ -92,6 +97,8 @@ fun TopNavigation(modifier: Modifier = Modifier) {
 @Composable
 fun TopNavigationPreview() {
     MailTheme {
-        TopNavigation()
+        TopNavigation {
+            // Do Nothing
+        }
     }
 }
