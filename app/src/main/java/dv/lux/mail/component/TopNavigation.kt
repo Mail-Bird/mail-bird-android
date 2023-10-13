@@ -82,7 +82,7 @@ fun TopNavigation(modifier: Modifier = Modifier) {
         }
         Divider(
             color = colorResource(id = R.color.divider),
-            thickness = 1.dp,
+            thickness = 0.5.dp,
             modifier = Modifier.padding(horizontal = 20.dp),
         )
     }
