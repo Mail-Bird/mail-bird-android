@@ -33,6 +33,7 @@ import dv.lux.mail.ui.theme.MailTheme
 
 @Composable
 fun TopNavigation(
+    onDrawerNavigation: () -> Unit,
     onOpenProfile: () -> Unit
 ) {
     Column {
@@ -47,7 +48,9 @@ fun TopNavigation(
                 Icon(
                     imageVector = Icons.Default.Menu,
                     contentDescription = stringResource(id = R.string.cd_home_menu),
-                    modifier = Modifier.padding(10.dp)
+                    modifier = Modifier.padding(10.dp).clickable {
+                        onDrawerNavigation.invoke()
+                    }
                 )
                 Icon(
                     imageVector = Icons.Default.Search,
@@ -97,8 +100,6 @@ fun TopNavigation(
 @Composable
 fun TopNavigationPreview() {
     MailTheme {
-        TopNavigation {
-            // Do Nothing
-        }
+        TopNavigation(onDrawerNavigation = {}, onOpenProfile = {})
     }
 }
