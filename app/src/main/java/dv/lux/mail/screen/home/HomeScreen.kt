@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    onOpenSearch: () -> Unit,
     onOpenProfile: () -> Unit
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -49,7 +50,9 @@ fun HomeScreen(
                             if (isClosed) open() else close()
                         }
                     }
-                }, onOpenProfile = onOpenProfile
+                },
+                onOpenSearch = onOpenSearch,
+                onOpenProfile = onOpenProfile
             )
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(

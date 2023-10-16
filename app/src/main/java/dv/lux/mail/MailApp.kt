@@ -11,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dv.lux.mail.component.ChromeBrowserTab
 import dv.lux.mail.screen.NavigationRoutes
 import dv.lux.mail.screen.home.HomeScreen
 import dv.lux.mail.screen.profile.ProfileScreen
@@ -31,14 +32,21 @@ fun MailApp(
                 exitTransition = { fadeOut(animationSpec = tween(300)) },
             ) {
                 composable(route = NavigationRoutes.Home.name) {
-                    HomeScreen(onOpenProfile = {
+                    HomeScreen(
+                        onOpenSearch = {
+                            navController.navigate(NavigationRoutes.Search.name)
+                        },
+                        onOpenProfile = {
                             navController.navigate(NavigationRoutes.Profile.name)
-                    })
+                    },)
                 }
                 composable(route = NavigationRoutes.Profile.name) {
                     ProfileScreen(onBackPress = {
                         navController.popBackStack()
                     })
+                }
+                composable(route = NavigationRoutes.Search.name) {
+                    ChromeBrowserTab()
                 }
             }
         }
