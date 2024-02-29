@@ -34,8 +34,6 @@ import dv.lux.mail.ui.theme.MailTheme
 @Composable
 fun TopNavigation(
     onDrawerNavigation: () -> Unit,
-    onOpenSearch: () -> Unit,
-    onOpenProfile: () -> Unit
 ) {
     Column {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
@@ -57,7 +55,7 @@ fun TopNavigation(
                     imageVector = Icons.Default.Search,
                     contentDescription = stringResource(id = R.string.cd_search_menu),
                     modifier = Modifier.padding(10.dp).clickable {
-                        onOpenSearch.invoke()
+//                        onOpenSearch.invoke()
                     }
                 )
             }
@@ -86,7 +84,7 @@ fun TopNavigation(
                             shape = CircleShape
                         )
                         .clickable {
-                            onOpenProfile.invoke()
+//                            onOpenProfile.invoke()
                         }
                 )
             }
@@ -96,13 +94,5 @@ fun TopNavigation(
             thickness = 0.5.dp,
             modifier = Modifier.padding(horizontal = 20.dp),
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TopNavigationPreview() {
-    MailTheme {
-        TopNavigation(onDrawerNavigation = {}, onOpenSearch = {}, onOpenProfile = {})
     }
 }

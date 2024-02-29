@@ -9,13 +9,14 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dv.lux.mail.root.RootActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity: ComponentActivity() {
+class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val splashScreen = installSplashScreen()
             splashScreen.setKeepOnScreenCondition { true }
         }
@@ -24,7 +25,7 @@ class SplashActivity: ComponentActivity() {
             lifecycle.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 delay(3000)
 
-                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                val intent = Intent(this@SplashActivity, RootActivity::class.java)
                 startActivity(intent)
                 finish()
             }

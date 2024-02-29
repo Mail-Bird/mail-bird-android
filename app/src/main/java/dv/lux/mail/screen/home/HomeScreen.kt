@@ -21,10 +21,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
-    onOpenSearch: () -> Unit,
-    onOpenProfile: () -> Unit
-) {
+fun HomeScreen() {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     ModalNavigationDrawer(
@@ -51,8 +48,6 @@ fun HomeScreen(
                         }
                     }
                 },
-                onOpenSearch = onOpenSearch,
-                onOpenProfile = onOpenProfile
             )
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(
