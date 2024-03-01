@@ -1,12 +1,16 @@
 package dv.lux.mail.screen
 
+import android.annotation.SuppressLint
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
 
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun WebViewScreen() {
+fun WebViewScreen(
+    url: String
+) {
     AndroidView(
         factory = { context ->
             WebView(context).apply {
@@ -19,7 +23,7 @@ fun WebViewScreen() {
             }
         },
         update = { webView ->
-            webView.loadUrl("https://www.ldoceonline.com/")
+            webView.loadUrl(url)
         }
     )
 }

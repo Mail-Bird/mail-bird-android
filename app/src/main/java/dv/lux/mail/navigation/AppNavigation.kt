@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import dv.lux.mail.application.MailAppState
+import dv.lux.mail.screen.WebViewScreen
 import dv.lux.mail.screen.home.HomeScreen
 import dv.lux.mail.screen.home.HomeViewModel
 import dv.lux.mail.screen.login.LoginScreen
@@ -25,8 +26,21 @@ fun AppNavigation(
     ) {
         loginGraph(appState.router)
         homesGraph(appState.router)
+        globalGraph(appState.router)
     }
 }
+
+fun NavGraphBuilder.globalGraph(router: AppRouter) {
+    navigation(
+        route = GlobalGraphRoute.route,
+        startDestination = TermsOfUseScreenRoute.route
+    ) {
+        composable(route = TermsOfUseScreenRoute.route) {
+            WebViewScreen("https://alia.geekup.vn/privacy-policy")
+        }
+    }
+}
+
 fun NavGraphBuilder.loginGraph(
     router: AppRouter
 ) {
@@ -36,7 +50,7 @@ fun NavGraphBuilder.loginGraph(
     ) {
         composable(route = LoginScreenRoute.route) {
             val viewModel = hiltViewModel<LoginViewModel>()
-            LoginScreen()
+            LoginScreen(onClickTermsOfUse = router::showTermsOfUse)
         }
     }
 }

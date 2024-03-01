@@ -1,6 +1,5 @@
 package dv.lux.mail.screen.login
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +25,9 @@ import dv.lux.mail.R
 import dv.lux.mail.ui.theme.AppTypography
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    onClickTermsOfUse: () -> Unit,
+) {
     Box(modifier = with(Modifier) {
         fillMaxSize()
             .paint(
@@ -52,14 +53,16 @@ fun LoginScreen() {
                     Text(text = "Login with Outlook")
                 }
                 Spacer(modifier = Modifier.weight(1.0f))
-                TermOfUseSpannableText()
+                TermOfUseSpannableText(onClickTermsOfUse = onClickTermsOfUse)
             }
         }
     }
 }
 
 @Composable
-fun TermOfUseSpannableText() {
+fun TermOfUseSpannableText(
+    onClickTermsOfUse: () -> Unit,
+) {
     val annotatedString = buildAnnotatedString {
         append("By signing in you agree to our ")
 
@@ -82,7 +85,7 @@ fun TermOfUseSpannableText() {
         onClick = { offset ->
             annotatedString.getStringAnnotations(tag = "terms", start = offset, end = offset)
                 .firstOrNull()?.let {
-                    Log.d("terms URL", it.item)
+                    onClickTermsOfUse()
                 }
         },
         modifier = Modifier.padding(vertical = 8.dp)

@@ -6,6 +6,10 @@ class AppRouterImpl(
     private val navigationController: NavHostController
 ) : AppRouter {
 
+    override fun showTermsOfUse() {
+        navigationController.navigate(TermsOfUseScreenRoute.route)
+    }
+
     override fun showLogin() {
         navigationController.navigate(LoginScreenRoute.route) {
             popUpTo(0) // reset stack
