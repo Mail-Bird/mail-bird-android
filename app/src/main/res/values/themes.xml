@@ -2,7 +2,8 @@
 <resources>
 
     <style name="Theme.Mail" parent="android:Theme.Material.Light.NoActionBar">
-        <!-- Custom style for app-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="Theme.Mail.SplashScreen" parent="Theme.Mail">
