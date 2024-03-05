@@ -1,9 +1,17 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
 }
+
+// Load keystore
+val keystorePropertiesFile: File = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 
 android {
     namespace = "dv.lux.mail"
@@ -22,10 +30,45 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(keystoreProperties["KEY_FILE"] as Any)
+            storePassword = keystoreProperties["KEY_PASS"] as String
+            keyAlias = keystoreProperties["KEY_ALIAS"] as String
+            keyPassword = keystoreProperties["KEY_PASS"] as String
+        }
+    }
+
     buildTypes {
-        release {
+        getByName("debug") {
             isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        getByName("release") {
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    flavorDimensions += "environment"
+    productFlavors {
+
+        create("dev") {
+            dimension = "environment"
+            val configProps = Properties()
+            configProps.load(project.rootProject.file("env.dev.properties").inputStream())
+            applicationId = configProps.getProperty("application.id")
+            manifestPlaceholders["applicationName"] = configProps.getProperty("application.name")
+        }
+        create("prod") {
+            dimension = "environment"
+            val configProps = Properties()
+            configProps.load(project.rootProject.file("env.prod.properties").inputStream())
+            applicationId = configProps.getProperty("application.id")
+            manifestPlaceholders["applicationName"] = configProps.getProperty("application.name")
         }
     }
     compileOptions {
@@ -49,7 +92,6 @@ android {
 }
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
