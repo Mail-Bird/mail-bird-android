@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "Mail"
 include(":app")
 include(":data")
+include(":domain")
