@@ -9,6 +9,7 @@ object TermsOfUseScreenRoute : AppRoutes("TermsOfUse")
 
 object LoginGraphRoute : AppRoutes("LoginGraph")
 object LoginScreenRoute : AppRoutes("Login")
+object LoginWithOutlookScreenRoute : AppRoutes("LoginWithOutlook")
 
 object HomeGraphRoute : AppRoutes("HomeGraph")
 object HomeScreenRoute : AppRoutes("Home")

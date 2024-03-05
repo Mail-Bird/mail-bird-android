@@ -1,17 +1,18 @@
 package dv.lux.mail.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import dv.lux.mail.application.MailAppState
 import dv.lux.mail.screen.WebViewScreen
 import dv.lux.mail.screen.home.HomeScreen
 import dv.lux.mail.screen.home.HomeViewModel
 import dv.lux.mail.screen.login.LoginScreen
 import dv.lux.mail.screen.login.LoginViewModel
+import dv.lux.mail.screen.login.outlook.LoginWithOutlookScreen
 
 @Composable
 fun AppNavigation(
@@ -50,7 +51,13 @@ fun NavGraphBuilder.loginGraph(
     ) {
         composable(route = LoginScreenRoute.route) {
             val viewModel = hiltViewModel<LoginViewModel>()
-            LoginScreen(onClickTermsOfUse = router::showTermsOfUse)
+            LoginScreen(
+                onClickTermsOfUse = router::showTermsOfUse,
+                onClickLoginWithOutlook = router::onClickLoginWithOutlook
+            )
+        }
+        composable(route = LoginWithOutlookScreenRoute.route) {
+            LoginWithOutlookScreen()
         }
     }
 }

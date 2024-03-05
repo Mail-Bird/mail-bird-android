@@ -27,6 +27,7 @@ import dv.lux.mail.ui.theme.AppTypography
 @Composable
 fun LoginScreen(
     onClickTermsOfUse: () -> Unit,
+    onClickLoginWithOutlook: () -> Unit,
 ) {
     Box(modifier = with(Modifier) {
         fillMaxSize()
@@ -48,7 +49,7 @@ fun LoginScreen(
             ) {
                 Spacer(modifier = Modifier.weight(2.0f))
                 Button(onClick = {
-                    // TODO: Login
+                    onClickLoginWithOutlook()
                 }) {
                     Text(text = "Login with Outlook")
                 }

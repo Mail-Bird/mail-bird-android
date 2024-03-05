@@ -16,6 +16,10 @@ class AppRouterImpl(
         }
     }
 
+    override fun onClickLoginWithOutlook() {
+        navigationController.navigate(LoginWithOutlookScreenRoute.route)
+    }
+
     override fun showHome() {
         navigationController.navigate(HomeScreenRoute.route) {
             popUpTo(LoginGraphRoute.route) {
