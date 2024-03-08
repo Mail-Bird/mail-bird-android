@@ -16,7 +16,7 @@ class LoginWithOutlookViewModel @Inject constructor(
     }
 
     fun saveToken(token: Token) {
-        TODO("Not yet implemented")
+
     }
 
 }

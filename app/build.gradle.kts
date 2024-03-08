@@ -121,6 +121,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
     implementation("androidx.browser:browser:1.7.0")
+    implementation("com.airbnb.android:lottie-compose:5.2.0")
 
     // DI
     implementation("com.google.dagger:hilt-android:2.48")
