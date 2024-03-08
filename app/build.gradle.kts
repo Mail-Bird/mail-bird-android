@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.internal.KaptGenerateStubsTask
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -76,7 +77,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
     buildFeatures {
         compose = true
@@ -89,6 +90,10 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+}
+
+tasks.withType(KaptGenerateStubsTask::class).configureEach {
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
 }
 
 dependencies {
@@ -121,4 +126,8 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    // Architecture
+    implementation(project(":data"))
+    implementation(project(":domain"))
 }

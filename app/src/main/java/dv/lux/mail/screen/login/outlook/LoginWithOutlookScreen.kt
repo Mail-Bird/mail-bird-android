@@ -12,16 +12,37 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
+import dv.lux.data.BuildConfig
+import dv.lux.domain.model.Token
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-fun LoginWithOutlookScreen() {
+fun LoginWithOutlookScreen(viewModel: LoginWithOutlookViewModel) {
+
+    val scope = CoroutineScope(Job() + Dispatchers.Main)
+
+    val loginOutlookEndpoint =
+        "https://login.live.com/oauth20_authorize.srf?response_type=code&response_mode=query&prompt=login&client_id=${
+            BuildConfig
+                .OUTLOOK_CLIENT_ID
+        }&redirect_uri=${BuildConfig.OUTLOOK_REDIRECT_URI}&scope=${BuildConfig.OUTLOOK_SCOPE}&state=${BuildConfig.OUTLOOK_STATE}"
 
     AndroidView(
         factory = { context ->
             WebView(context).apply {
                 settings.javaScriptEnabled = true
-                this.webViewClient = CustomWebViewClient()
+                this.webViewClient = CustomWebViewClient(callback = { code ->
+                    scope.launch {
+                        val token: Token = viewModel.getToken(code)
+                        if (!TextUtils.isEmpty(token.idToken)) {
+                            viewModel.saveToken(token)
+                        }
+                    }
+                })
 
                 settings.loadWithOverviewMode = true
                 settings.useWideViewPort = true
@@ -29,11 +50,7 @@ fun LoginWithOutlookScreen() {
             }
         },
         update = { webView ->
-            val clientId = "09332e54-c687-4dc3-a28c-c225306846fd"
-            val redirectUri = "mailbrid://login-success"
-            val scope = "openid profile offline_access https://graph.microsoft.com/mail.send https://graph.microsoft.com/mail.readwrite https://graph.microsoft.com/contacts.read https://graph.microsoft.com/calendars.readwrite https://graph.microsoft.com/User.Read"
-            val state = "3d41745f-3959-483f-a151-8d78fe384428"
-            webView.loadUrl("https://login.live.com/oauth20_authorize.srf?response_type=code&response_mode=query&prompt=login&client_id=$clientId&redirect_uri=$redirectUri&scope=$scope&state=$state")
+            webView.loadUrl(loginOutlookEndpoint)
         },
         modifier = Modifier
             .fillMaxSize()
@@ -42,20 +59,15 @@ fun LoginWithOutlookScreen() {
     )
 }
 
-class CustomWebViewClient: WebViewClient(){
-
-    val clientId = "09332e54-c687-4dc3-a28c-c225306846fd"
-    val redirectUri = "mailbrid://login-success"
-    val scope = "openid profile offline_access https://graph.microsoft.com/mail.send https://graph.microsoft.com/mail.readwrite https://graph.microsoft.com/contacts.read https://graph.microsoft.com/calendars.readwrite https://graph.microsoft.com/User.Read"
-    val state = "3d41745f-3959-483f-a151-8d78fe384428"
+class CustomWebViewClient(private val callback: (code: String) -> Unit) : WebViewClient() {
     override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
         // TODO loading
 
-        if (request?.url?.toString()?.startsWith(redirectUri) == false) {
+        if (request?.url?.toString()?.startsWith(BuildConfig.OUTLOOK_REDIRECT_URI) == false) {
             return super.shouldOverrideUrlLoading(view, request)
         }
 
-        if (state != request?.url?.getQueryParameter("state")) {
+        if (BuildConfig.OUTLOOK_STATE != request?.url?.getQueryParameter("state")) {
             // TODO show error
             // TODO cancel loading
             return false
@@ -67,6 +79,7 @@ class CustomWebViewClient: WebViewClient(){
             if (!TextUtils.isEmpty(code)) {
                 // TODO Handle get toke from code
                 Log.e("TAG", "shouldOverrideUrlLoading: $code")
+                callback.invoke(code ?: "")
                 return true
             }
             // TODO show error

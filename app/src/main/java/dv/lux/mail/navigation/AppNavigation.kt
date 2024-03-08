@@ -13,6 +13,7 @@ import dv.lux.mail.screen.home.HomeViewModel
 import dv.lux.mail.screen.login.LoginScreen
 import dv.lux.mail.screen.login.LoginViewModel
 import dv.lux.mail.screen.login.outlook.LoginWithOutlookScreen
+import dv.lux.mail.screen.login.outlook.LoginWithOutlookViewModel
 
 @Composable
 fun AppNavigation(
@@ -57,7 +58,8 @@ fun NavGraphBuilder.loginGraph(
             )
         }
         composable(route = LoginWithOutlookScreenRoute.route) {
-            LoginWithOutlookScreen()
+            val viewModel = hiltViewModel<LoginWithOutlookViewModel>()
+            LoginWithOutlookScreen(viewModel)
         }
     }
 }
