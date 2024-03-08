@@ -14,3 +14,5 @@
 .cxx
 local.properties
 /.idea/
+/env.dev.properties
+/env.prod.properties
