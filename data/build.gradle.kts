@@ -34,6 +34,11 @@ android {
             val configProps = Properties()
             configProps.load(project.rootProject.file("env.dev.properties").inputStream())
 
+            buildConfigField("String", "STORAGE_FILE_NAME", configProps.getProperty("storage.file.name"))
+            buildConfigField("String", "STORAGE_MASTER_KEY_ALIAS", configProps.getProperty("storage.master.key.alias"))
+
+            buildConfigField("String", "OUTLOOK_DOMAIN_AUTH", configProps.getProperty("outlook.domain.auth"))
+            buildConfigField("String", "OUTLOOK_DOMAIN_GRAPH", configProps.getProperty("outlook.domain.graph"))
             buildConfigField("String", "OUTLOOK_CLIENT_ID", configProps.getProperty("outlook.clientId"))
             buildConfigField("String", "OUTLOOK_REDIRECT_URI", configProps.getProperty("outlook.redirectUri"))
             buildConfigField("String", "OUTLOOK_SCOPE", configProps.getProperty("outlook.scope"))
@@ -44,6 +49,11 @@ android {
             val configProps = Properties()
             configProps.load(project.rootProject.file("env.prod.properties").inputStream())
 
+            buildConfigField("String", "STORAGE_FILE_NAME", configProps.getProperty("storage.file.name"))
+            buildConfigField("String", "STORAGE_MASTER_KEY_ALIAS", configProps.getProperty("storage.master.key.alias"))
+
+            buildConfigField("String", "OUTLOOK_DOMAIN_AUTH", configProps.getProperty("outlook.domain.auth"))
+            buildConfigField("String", "OUTLOOK_DOMAIN_GRAPH", configProps.getProperty("outlook.domain.graph"))
             buildConfigField("String", "OUTLOOK_CLIENT_ID", configProps.getProperty("outlook.clientId"))
             buildConfigField("String", "OUTLOOK_REDIRECT_URI", configProps.getProperty("outlook.redirectUri"))
             buildConfigField("String", "OUTLOOK_SCOPE", configProps.getProperty("outlook.scope"))
@@ -58,7 +68,6 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
-
     android {
         buildFeatures {
             buildConfig = true
@@ -88,8 +97,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
-    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     // Architecture
     implementation(project(":domain"))
+    implementation(project(":utilities"))
 }

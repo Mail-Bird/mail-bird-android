@@ -1,20 +1,19 @@
 package dv.lux.data.model.vo
 
-import com.google.gson.annotations.SerializedName
 import dv.lux.domain.model.User
 
 data class UserVO(
-    @SerializedName("user_principal_name") val userPrincipalName: String,
-    @SerializedName("id") val id: String,
-    @SerializedName("display_name") val displayName: String,
-    @SerializedName("surname") val surname: String,
-    @SerializedName("given_name") val givenName: String,
-    @SerializedName("preferred_language") val preferredLanguage: String,
-    @SerializedName("mail") val mail: String,
-    @SerializedName("mobile_phone") val mobilePhone: String?,
-    @SerializedName("job_title") val jobTitle: String?,
-    @SerializedName("office_location") val officeLocation: String?,
-    @SerializedName("business_phones") val businessPhones: List<String>,
+    val userPrincipalName: String,
+    val id: String,
+    val displayName: String,
+    val surname: String,
+    val givenName: String,
+    val preferredLanguage: String,
+    val mail: String,
+    val mobilePhone: String?,
+    val jobTitle: String?,
+    val officeLocation: String?,
+    val businessPhones: List<String>,
 ) : BaseVO<User>() {
     override fun toModel(): User {
         return User(

@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface MicrosoftGraphService {
 
-    @GET("/v1.0/me/")
-    fun getUser(): UserVO
+    @GET("/v1.0/me")
+    suspend fun getUser(): UserVO
 }

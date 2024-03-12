@@ -17,3 +17,4 @@ rootProject.name = "Mail"
 include(":app")
 include(":data")
 include(":domain")
+include(":utilities")
